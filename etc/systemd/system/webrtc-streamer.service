@@ -1,0 +1,24 @@
+[Unit]
+Description=WebRTC-Streamer service
+Documentation=https://github.com/mpromonet/webrtc-streamer
+After=network.target
+
+[Service]
+Type=simple
+User=root
+PIDFile=/webrtc-streamer/webrtc-streamer.pid
+WorkingDirectory=/webrtc-streamer
+ExecStart=/webrtc-streamer/webrtc-streamer -c /centos-pxe.rentandroam.com.all.pem -o -S -H8780,8743s -D centos-pxe.rentandroam.com -N 8 -sstun.l.google.com:19302
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGINT
+Restart=always
+RestartSec=3
+
+# Do not set any timeout value, so that systemd will not kill postmaster
+# during crash recovery.
+TimeoutSec=10
+
+
+[Install]
+WantedBy=multi-user.target
