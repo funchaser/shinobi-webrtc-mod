@@ -1,3 +1,9 @@
+// see etc/systemd/system/webrtc-streamer.service file ....
+// if you are using domain name for you host:
+// webRtcServer = new WebRtcStreamer(id,"https://shinobi-host.someserver.com:8743");
+// if you are not using domain name for you host, use the locahost or whatever.... :
+// webRtcServer = new WebRtcStreamer(id,"http://localhost:8743");
+
 window._var_webrtc = [];
 window._var_webrtc_id = [];
 window._var_webrtc_auth = "";
@@ -32,6 +38,6 @@ function initWebRTC() {
 
 WebRtcCall = function(id,host) {
 var webRtcServer = null;
-webRtcServer = new WebRtcStreamer(id,"https://host.com:8743");
+webRtcServer = new WebRtcStreamer(id,"https://shinobi-host.someserver.com:8743");
 webRtcServer.connect(host);
 }
