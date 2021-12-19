@@ -11,4 +11,4 @@ Unfortunately, I am not very good in JS programming, so my code looks terrible (
 
 I am posting here all the instructions and hope that Mr. Moeiscool would implement it into the original sources, so everyone could enjoy REALTIME WebRTC streaming in Shinobi!
 
-webrtc-streamer.zip is compiled for Centos 7 (for diffferent OS you need to compile it by yourself, see here: https://github.com/mpromonet/webrtc-streamer)
+webrtc-streamer is compiled for Centos 7 (for diffferent OS you need to compile it by yourself, see here: https://github.com/mpromonet/webrtc-streamer)
