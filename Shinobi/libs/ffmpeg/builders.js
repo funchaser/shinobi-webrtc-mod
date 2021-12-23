@@ -271,7 +271,7 @@ module.exports = (s,config,lang) => {
                 streamFlags.push(`-f flv "${rtmpServerUrl + channel.rtmp_stream_key}"`)
             break;
             case'mp4':
-                streamFlags.push(`-f mp4 -movflags +frag_keyframe+empty_moov+default_base_moof -metadata title=\"Poseidon Stream from Shinobi\" -reset_timestamps 1 pipe:${number}`)
+                streamFlags.push(`-f mp4 -movflags +frag_keyframe+empty_moov+default_base_moof -metadata title="Poseidon Stream from Shinobi" -reset_timestamps 1 pipe:${number}`)
             break;
             case'flv':
                 streamFlags.push(`-f flv pipe:${number}`)
@@ -293,7 +293,7 @@ module.exports = (s,config,lang) => {
                 streamFlags.push(`-an -c:v mjpeg -f mpjpeg -boundary_tag shinobi pipe:${number}`)
             break;
             case'h265':
-                streamFlags.push(`-movflags +frag_keyframe+empty_moov+default_base_moof -metadata title=\"Shinobi H.265 Stream\" -reset_timestamps 1 -f hevc pipe:${number}`)
+                streamFlags.push(`-movflags +frag_keyframe+empty_moov+default_base_moof -metadata title="Shinobi H.265 Stream" -reset_timestamps 1 -f hevc pipe:${number}`)
             break;
             case'b64':case'':case undefined:case null://base64
                 streamFlags.push(`-an -c:v mjpeg -f image2pipe pipe:${number}`)
@@ -422,7 +422,7 @@ module.exports = (s,config,lang) => {
             if(!videoCodecisCopy || outputRequiresEncoding){
                 if(videoWidth && videoHeight)streamFlags.push(`-s ${videoWidth}x${videoHeight}`)
                 if(videoFps && streamType === 'mjpeg' || streamType === 'b64'){
-///***                    streamFilters.push(`fps=${videoFps},hwdownload,format=nv12`)
+                    streamFilters.push(`fps=${videoFps},hwdownload,format=nv12`)
                 }
             }
             if(e.details.stream_vf){
@@ -431,10 +431,10 @@ module.exports = (s,config,lang) => {
             if(outputIsPresetCapable){
                 const streamPreset = streamType !== 'h265' && e.details.preset_stream ? e.details.preset_stream : null
                 if(streamPreset){
-///***                    streamFlags.push(`-preset ${streamPreset}`)
+                    streamFlags.push(`-preset ${streamPreset}`)
                 }
                 if(!videoCodecisCopy){
-///***                    streamFlags.push(`-q:v ${videoQuality}`)
+                    streamFlags.push(`-q:v ${videoQuality}`)
                 }
             }else{
               if(streamType !== 'webrtc') streamFlags.push(`-q:v ${videoQuality}`)
@@ -442,9 +442,6 @@ module.exports = (s,config,lang) => {
             if((!videoCodecisCopy || outputRequiresEncoding) && streamFilters.length > 0){
                 streamFlags.push(`-vf "${streamFilters.join(',')}"`)
             }
-//console.log("****************************++++++++****************************")       
-//console.log(streamType)
-//console.log(e.details)
             switch(streamType){
 ///***///            
             case'webrtc':
@@ -452,7 +449,7 @@ module.exports = (s,config,lang) => {
             break;
 ///***///            
                 case'mp4':
-                    streamFlags.push('-f mp4 -movflags +frag_keyframe+empty_moov+default_base_moof -metadata title=\"Poseidon Stream from Shinobi\" -reset_timestamps 1 pipe:1')
+                    streamFlags.push('-f mp4 -movflags +frag_keyframe+empty_moov+default_base_moof -metadata title="Poseidon Stream from Shinobi" -reset_timestamps 1 pipe:1')
                 break;
                 case'flv':
                     streamFlags.push(`-f flv`,'pipe:1')
@@ -462,20 +459,19 @@ module.exports = (s,config,lang) => {
                     const hlsListSize = !isNaN(parseInt(e.details.hls_list_size)) ? `${parseInt(e.details.hls_list_size)}` : '2'
                     if(videoCodec !== 'h264_vaapi' && !videoCodecisCopy){
                         if(!arrayContains('-tune',streamFlags)){
-///**                            streamFlags.push(`-tune zerolatency`)
+                            streamFlags.push(`-tune zerolatency`)
                         }
                         if(!arrayContains('-g ',streamFlags)){
-///*                            streamFlags.push(`-g 1`)
+                            streamFlags.push(`-g 1`)
                         }
                     }
-//                    streamFlags.push(`-preset p1 -g 999999 -vsync 0 -f hls -hls_time ${hlsTime} -hls_list_size ${hlsListSize} -start_number 0 -hls_allow_cache 0 -hls_flags +delete_segments+omit_endlist "${e.sdir}s.m3u8"`)
-                    streamFlags.push(` -gpu 0  -zerolatency 1 -f hls -hls_time 1 -hls_list_size 10 -start_number 0 -hls_allow_cache 0 -hls_flags split_by_time+delete_segments+omit_endlist "${e.sdir}s.m3u8"`)
+                    streamFlags.push(`-preset p1 -g 999999 -vsync 0 -f hls -hls_time ${hlsTime} -hls_list_size ${hlsListSize} -start_number 0 -hls_allow_cache 0 -hls_flags +delete_segments+omit_endlist "${e.sdir}s.m3u8"`)
                     break;
                 case'mjpeg':
-///**                    streamFlags.push(`-an -c:v mjpeg -f mpjpeg -boundary_tag shinobi pipe:1`)
+                    streamFlags.push(`-an -c:v mjpeg -f mpjpeg -boundary_tag shinobi pipe:1`)
                 break;
                 case'h265':
-                    streamFlags.push(`-movflags +frag_keyframe+empty_moov+default_base_moof -metadata title=\"Shinobi H.265 Stream\" -reset_timestamps 1 -f hevc pipe:1`)
+                    streamFlags.push(`-movflags +frag_keyframe+empty_moov+default_base_moof -metadata title="Shinobi H.265 Stream" -reset_timestamps 1 -f hevc pipe:1`)
                 break;
                 case'b64':case'':case undefined:case null://base64
                     streamFlags.push(`-an -c:v mjpeg -f image2pipe pipe:1`)
@@ -665,7 +661,7 @@ module.exports = (s,config,lang) => {
                 }
                 if(builtInMotionDetectorIsEnabled){
                     addVideoFilters()
-//                    detectorFlags.push(baseDimensionsFlag)
+///*                    detectorFlags.push(baseDimensionsFlag)
                     detectorFlags.push('-an -c:v pam -pix_fmt gray -f image2pipe pipe:3')
                     if(objectDetectorOutputIsEnabled){
                         addObjectDetectorInputMap()
