@@ -303,42 +303,10 @@ $.ccio.globalWebsocket=function(d,user){
                     var path = tool.checkCorrectPathEnding(location.pathname)+'socket.io'
                 }
                 switch(d.d.stream_type){
-///
                     case'webrtc':
-                        d.fn=function(){
-                            clearTimeout($.ccio.mon[d.ke+d.id+user.auth_token].m3uCheck)
-                            d.url=$.ccio.init('location',user)+user.auth_token+'/hls/'+d.ke+'/'+d.id+'/s.m3u8';
-                            $.get(d.url,function(m3u){
-                                if(m3u=='File Not Found'){
-                                    $.ccio.mon[d.ke+d.id+user.auth_token].m3uCheck=setTimeout(function(){
-                                        d.fn()
-                                    },2000)
-                                }else{
-                                    var video = $('#monitor_live_'+d.id+user.auth_token+' .stream-element')[0];
-                                    if ($.ccio.isAppleDevice) {
-                                        video.src=d.url;
-                                        video.addEventListener('loadedmetadata', function() {
-                                          setTimeout(function(){
-                                            video.play();
-                                          },3000)
-                                        }, false);
-                                    }else{
-                                        if($.ccio.mon[d.ke+d.id+user.auth_token].hls){$.ccio.mon[d.ke+d.id+user.auth_token].hls.destroy();URL.revokeObjectURL(video.src)}
-                                        $.ccio.mon[d.ke+d.id+user.auth_token].hls = new Hls();
-                                        $.ccio.mon[d.ke+d.id+user.auth_token].hls.loadSource(d.url);
-                                        $.ccio.mon[d.ke+d.id+user.auth_token].hls.attachMedia(video);
-                                        $.ccio.mon[d.ke+d.id+user.auth_token].hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                                            if (video.paused) {
-                                                video.play();
-                                            }
-                                        });
-                                    }
-                                }
-                            })
-                        }
-                        d.fn()
+                    var video = $('#monitor_live_'+d.id+user.auth_token+' .stream-element')[0];
+                    if (video.readyState < 1) WebRtcCall('webrtc_'+d.id+user.auth_token,d.d.auto_host)                    
                     break;
-///
                     case'jpeg':
                         $.ccio.init('jpegMode',$.ccio.mon[d.ke+d.id+user.auth_token]);
                     break;

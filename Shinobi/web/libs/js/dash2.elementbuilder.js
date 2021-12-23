@@ -280,20 +280,7 @@ $.ccio.tm=function(x,d,z,user){
             }else{
                 switch(k.d.stream_type){
                     case'webrtc':
-                        tmp+=`<video class="stream-element" id="webrtc_`+d.mid+`" muted autoplay poster="/libs/img/poster.png" 
-oncanplay="initWebRTC('oncanplay')"
-onemptied="initWebRTC('onemptied')"
-onloadstart="initWebRTC('onloadstart')"
-onwaiting="initWebRTC('onwaiting')"
- ></video>`;
-                        window._var_webrtc[d.mid] = 0;
-                        window._var_webrtc_id[d.mid] = "webrtc_"+d.mid;
-                        window._var_webrtc_auth = user.auth_token;
-                        window._var_webrtc_host[d.mid] = k.d.auto_host;
-//                        if(k.e[0].innerHTML.search("webrtc_")<1)
-//                        {
-//                        k.e.append(`<script>WebRtcCall("webrtc_`+d.mid+user.auth_token+`","`+k.d.auto_host+`");</script>`)
-//                        }  
+                        tmp+=`<video class="stream-element" id="webrtc_`+d.mid+user.auth_token+`" muted autoplay poster="/libs/img/poster.png"></video>`;
                     break;
                     case'hls':case'flv':case'mp4':
                         tmp+=`<video class="stream-element" ${$.ccio.isAppleDevice ? 'playsinline' : ''} muted autoplay preload="none" poster="/libs/img/poster.png"></video>`;
@@ -330,7 +317,7 @@ onwaiting="initWebRTC('onwaiting')"
                                 if(hasFocus){
                                     vidEl.muted = false
                                 }else{
-                                    console.error('User must have window active to unmute.')
+//                                    console.error('User must have window active to unmute.')
                                 }
                             }
                         }catch(err){

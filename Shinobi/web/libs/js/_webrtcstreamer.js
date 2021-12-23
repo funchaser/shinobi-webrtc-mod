@@ -103,7 +103,7 @@ WebRtcStreamer.prototype.onReceiveGetIceServers = function(iceServers, videourl,
 		// create Offer
 		var bind = this;
 		this.pc.createOffer(this.mediaConstraints).then(function(sessionDescription) {
-			console.log("Create offer:" + JSON.stringify(sessionDescription));
+//////////			console.log("Create offer:" + JSON.stringify(sessionDescription));
 			
 			bind.pc.setLocalDescription(sessionDescription
 				, function() {
@@ -183,7 +183,7 @@ WebRtcStreamer.prototype.createPeerConnection = function() {
 		
 			recvs.forEach((recv) => {
 			  if (recv.track && recv.track.kind === "video") {
-				console.log("codecs:" + JSON.stringify(recv.getParameters().codecs))
+//////////				console.log("codecs:" + JSON.stringify(recv.getParameters().codecs))
 			  }
 			});
 		  }
@@ -254,7 +254,7 @@ WebRtcStreamer.prototype.onAddStream = function(event) {
 */
 WebRtcStreamer.prototype.onReceiveCall = function(dataJson) {
 	var bind = this;
-	console.log("offer: " + JSON.stringify(dataJson));
+//////////	console.log("offer: " + JSON.stringify(dataJson));
 	var descr = new RTCSessionDescription(dataJson);
 	this.pc.setRemoteDescription(descr
 		, function()      { 

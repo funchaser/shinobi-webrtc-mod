@@ -165,6 +165,7 @@ $.ccio.snapshot = function(options,cb){
         }
         switch(details.stream_type){
             case'webrtc':
+            	// I AM NOT SURE ABOUT THAT
                 $.ccio.snapshotVideo($('[mid='+monitor.mid+'][ke='+monitor.ke+'][auth='+monitor.user.auth_token+'].monitor_item video')[0],function(base64,video_data,width,height){
                     extend(video_data,width,height)
                 })

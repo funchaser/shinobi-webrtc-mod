@@ -107,7 +107,7 @@ $.ccio.init=function(x,d,user,k){
         case'streamMotionDetectOn':
             switch(JSON.parse(d.mon.details).stream_type){
                 case'webrtc':
-                    //********************
+                    //pass
                 break;
                 case'hls':case'flv':case'mp4':
                     //pass
@@ -250,7 +250,8 @@ $.ccio.init=function(x,d,user,k){
             var streamURL
             switch(JSON.parse(d.details).stream_type){
                 case'webrtc':
-                    streamURL=$.ccio.init('location',user)+user.auth_token+'/webrtc/'+d.ke+'/'+d.mid+'/s.m3u8'
+                	// instead of s.m3u8 - since we do not produce it....
+                    streamURL=$.ccio.init('location',user)+user.auth_token+'/hls/'+d.ke+'/'+d.mid+'/detectorStream.m3u8'
                 break;
                 case'jpeg':
                     streamURL=$.ccio.init('location',user)+user.auth_token+'/jpeg/'+d.ke+'/'+d.mid+'/s.jpg'
@@ -545,19 +546,7 @@ $.ccio.init=function(x,d,user,k){
                 if(!d.speed){d.speed=1000}
                 switch(d.d.stream_type){
                     case'webrtc':
-                        if(d.p.find('video')[0].paused){
-                            if(d.d.signal_check_log==1){
-                                d.log={type:'Stream Check',msg:lang.clientStreamFailedattemptingReconnect}
-                                $.ccio.tm(4,d,'#logs,.monitor_item[mid="'+d.id+'"][ke="'+d.ke+'"][auth="'+user.auth_token+'"] .logs')
-                            }
-                            $.ccio.cx({f:'monitor',ff:'watch_on',id:d.id},user);
-                        }else{
-                            if(d.d.signal_check_log==1){
-                                d.log={type:'Stream Check',msg:'Success'}
-                                $.ccio.tm(4,d,'#logs,.monitor_item[mid="'+d.id+'"][ke="'+d.ke+'"][auth="'+user.auth_token+'"] .logs')
-                            }
-                            $.ccio.init('signal',d,user);
-                        }
+                    // HAVE NO IDEA WHAT TO PUT HERE
                     break;
                     case'b64':case'h265':
                         d.p.resize()
