@@ -422,7 +422,7 @@ module.exports = (s,config,lang) => {
             if(!videoCodecisCopy || outputRequiresEncoding){
                 if(videoWidth && videoHeight)streamFlags.push(`-s ${videoWidth}x${videoHeight}`)
                 if(videoFps && streamType === 'mjpeg' || streamType === 'b64'){
-                    streamFilters.push(`fps=${videoFps},hwdownload,format=nv12`)
+                    streamFilters.push(`fps=${videoFps}`)
                 }
             }
             if(e.details.stream_vf){
@@ -465,7 +465,7 @@ module.exports = (s,config,lang) => {
                             streamFlags.push(`-g 1`)
                         }
                     }
-                    streamFlags.push(`-preset p1 -g 999999 -vsync 0 -f hls -hls_time ${hlsTime} -hls_list_size ${hlsListSize} -start_number 0 -hls_allow_cache 0 -hls_flags +delete_segments+omit_endlist "${e.sdir}s.m3u8"`)
+                    streamFlags.push(`-f hls -hls_time ${hlsTime} -hls_list_size ${hlsListSize} -start_number 0 -hls_allow_cache 0 -hls_flags +delete_segments+omit_endlist "${e.sdir}s.m3u8"`)
                     break;
                 case'mjpeg':
                     streamFlags.push(`-an -c:v mjpeg -f mpjpeg -boundary_tag shinobi pipe:1`)
