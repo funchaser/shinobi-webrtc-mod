@@ -2,7 +2,7 @@
 
 DISCLAMER
 
-I am not a proffesional software developer and I do not have an experiance in JS
+I am not a professional software developer and I do not have an experiance in JS
 so my code really looks ugly )))
 anyway, here is a -
 
